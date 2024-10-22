@@ -12,6 +12,8 @@ export interface UserPayload {
   email: string;
   username: string;
   password: string;
+  image: string;
+  creditBalance: number;
 }
 
 export interface UserModel extends Sequelize.Model<UserModel, UserPayload> {
@@ -19,6 +21,7 @@ export interface UserModel extends Sequelize.Model<UserModel, UserPayload> {
   username: string;
   email: string;
   password: string;
+  creditBalance: number;
   createdAt: string;
   updatedAt: string;
 }
