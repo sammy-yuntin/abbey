@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import { PostService, UserService } from "../../services";
-import { ApiResponse, Logger, SchemaValidation } from "../../libs";
+import { PostService } from "../../services";
+import { ApiResponse, Logger } from "../../libs";
 
 const makePost = async (req: Request, res: Response): Promise<any> => {
   try {

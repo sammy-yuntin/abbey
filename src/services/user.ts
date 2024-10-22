@@ -17,10 +17,14 @@ class UserService {
 
     const newUser = await UserRepo.create(payload);
 
-    return {
-      message: "You've successfully registered",
-      details: newUser
-    };
+    return ApiResponse.Success(
+      res,
+      {
+        message: "You've successfully registered",
+        details: newUser
+      },
+      201
+    );
   }
 
   async login(payload: any, res: Response): Promise<object> {
@@ -38,11 +42,11 @@ class UserService {
 
     const token = Tools.generateToken(user.id, "1hr");
 
-    return {
-      message: "You've successfully logged in",
-      token,
-      details: user
-    };
+    return ApiResponse.Success(
+      res,
+      { message: "You've successfully logged in", token, details: user },
+      200
+    );
   }
 
   /* async follow(payload: any, res: Response): Promise<object> {
@@ -70,10 +74,14 @@ class UserService {
 
     const updatedUser = await UserRepo.update(id, payload);
 
-    return {
-      message: "User updated successfully!",
-      details: updatedUser
-    };
+    return ApiResponse.Success(
+      res,
+      {
+        message: "User updated successfully!",
+        details: updatedUser
+      },
+      200
+    );
   }
 
   async findUser(id: string, res: Response): Promise<object> {
@@ -82,22 +90,33 @@ class UserService {
       return ApiResponse.NotFoundError(res, "User does not exist");
     }
 
-    return {
-      message: "Successfully retrieved user",
-      details: user
-    };
+    return ApiResponse.Success(
+      res,
+      {
+        message: "Successfully retrieved user",
+        details: user
+      },
+      200
+    );
   }
 
-  async findAllUsers(query?: {
-    offset: number;
-    limit: number;
-  }): Promise<object> {
+  async findAllUsers(
+    res: any,
+    query?: {
+      offset: number;
+      limit: number;
+    }
+  ): Promise<object> {
     const users = await UserRepo.findAll(query);
 
-    return {
-      message: "Successfully retrieved all users",
-      details: users
-    };
+    return ApiResponse.Success(
+      res,
+      {
+        message: "Successfully retrieved all users",
+        details: users
+      },
+      200
+    );
   }
 
   async deleteUser(id: string, res: Response): Promise<object> {
@@ -106,10 +125,10 @@ class UserService {
       return ApiResponse.NotFoundError(res, "User does not exist");
 
     await UserRepo.remove(id);
-    return {
+    return ApiResponse.Success(res,{
       message: "Successfully deleted user",
       details: user
-    };
+    },200 ) 
   }
 }
 

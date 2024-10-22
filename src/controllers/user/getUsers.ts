@@ -2,29 +2,29 @@ import { Request, Response } from "express";
 import { UserService } from "../../services";
 import { ApiResponse } from "../../libs";
 
-const findAllUsers = async (req: Request, res: Response): Promise<Response> => {
-    try {
-        const { limit, offset } = req.query;
-        const attributes = {
-            exclude: ["updatedAt", "createdAt", "password"]
-        };
-        const query = {
-            offset: offset ? Number(offset) : 0,
-            limit: limit ? Number(limit) : 100,
-            attributes,
-            order: [["id", "DESC"]], // sort data in descending order using id
-            separate: true // sorting will not work if this is missing
-        }; // get actual skip and limit from query params
+const findAllUsers = async (req: Request, res: Response): Promise<any> => {
+  try {
+    const { limit, offset } = req.query;
+    const attributes = {
+      exclude: ["updatedAt", "createdAt", "password"]
+    };
+    const query = {
+      offset: offset ? Number(offset) : 0,
+      limit: limit ? Number(limit) : 100,
+      attributes,
+      order: [["id", "DESC"]], // sort data in descending order using id
+      separate: true // sorting will not work if this is missing
+    }; // get actual skip and limit from query params
 
-        const user = await UserService.findAllUsers(query);
-        return ApiResponse.Success(res, user);
-    } catch (error) {
+    const users = await UserService.findAllUsers(query);
+    return users;
+  } catch (error) {
     // Logger.error(error.message)
-        return ApiResponse.InternalServerError(
-            res,
-            "Server Error: Something went wrong"
-        );
-    }
+    return ApiResponse.InternalServerError(
+      res,
+      "Server Error: Something went wrong"
+    );
+  }
 };
 
 export default findAllUsers;

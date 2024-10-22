@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { UserService } from "../../services";
-import { ApiResponse, SchemaValidation } from "../../libs";
+import { ApiResponse, Logger, SchemaValidation } from "../../libs";
 
 const registerUser = async (req: Request, res: Response): Promise<any> => {
   try {
@@ -15,7 +15,7 @@ const registerUser = async (req: Request, res: Response): Promise<any> => {
     }
     return await UserService.register(req.body, res);
   } catch (error) {
-    // Logger.error(error.message)
+    Logger.error(error.message);
     return ApiResponse.InternalServerError(
       res,
       "Server Error: Something went wrong"
