@@ -4,7 +4,7 @@ import { Tools } from "../utils";
 
 import { Response } from "express";
 import { ApiResponse, Logger } from "../libs";
-import { details } from "@controllers/user";
+import { details } from "../controllers/user";
 
 class ContactService {
   async add(payload: any, res: Response): Promise<object> {

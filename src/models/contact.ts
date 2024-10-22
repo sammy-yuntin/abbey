@@ -1,4 +1,4 @@
-import dbClient from "@datasources/db";
+import dbClient from "../datasources/db";
 import { DataTypes, UUIDV4 } from "sequelize";
 
 const Contact = dbClient.define(

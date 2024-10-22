@@ -4,7 +4,7 @@ import { Tools } from "../utils";
 
 import { Response } from "express";
 import { ApiResponse, Logger } from "../libs";
-import { followRship } from "@models/index";
+import { followRship } from "../models/index";
 
 class UserService {
   async register(payload: any, res: Response): Promise<object> {

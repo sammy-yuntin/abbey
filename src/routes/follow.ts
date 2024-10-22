@@ -1,4 +1,4 @@
-import authentication from "@middlewares/authentication";
+import authentication from "../middlewares/authentication";
 import { Router } from "express";
 import { followControllers } from "../controllers/index";
 

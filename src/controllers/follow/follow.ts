@@ -1,5 +1,5 @@
-import { Logger } from "@libs/index";
-import { FollowService } from "@services/index";
+import { Logger } from "../../libs/index";
+import { FollowService } from "../../services/index";
 
 const follow = async (req, res) => {
   try {
