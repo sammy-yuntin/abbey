@@ -1,10 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { ContactRepo, UserRepo } from "../repositories";
-import { Tools } from "../utils";
 
 import { Response } from "express";
-import { ApiResponse, Logger } from "../libs";
-import { details } from "../controllers/user";
+import { ApiResponse } from "../libs";
 
 class ContactService {
   async add(payload: any, res: Response): Promise<object> {

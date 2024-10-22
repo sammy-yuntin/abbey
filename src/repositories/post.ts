@@ -20,6 +20,11 @@ class PostRepo {
       where: { text: { [Op.like]: `%${keyword}%` } }
     });
   }
+  async findAll(id: string): Promise<object> {
+    return await Post.findAll({
+      where: { userId: id }
+    });
+  }
 
   /* async findByEmail(email: string): Promise<object> {
     return await followRship.findOne({

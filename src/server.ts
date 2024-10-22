@@ -24,33 +24,33 @@ app.use(bodyParser.json({ limit: "200mb" }));
 app.use(bodyParser.urlencoded({ limit: "200mb", extended: true }));
 
 app.use(
-    rateLimit({
+  rateLimit({
     // Limit each IP to a certain number of requests every 15 minutes.
-        windowMs: 15 * 60 * 1000,
-        limit: Number(env.RATE_LIMIT),
-        message:
+    windowMs: 15 * 60 * 1000,
+    limit: Number(env.RATE_LIMIT),
+    message:
       "Too many requests from this IP, please try again after 20 minutes.",
-        legacyHeaders: false
-    })
+    legacyHeaders: false
+  })
 );
 
 app.use(
-    responseTime((req: Request, res: Response, time: number) => {
-        if (req?.route?.path) {
-            restResponseTimeHistogram.observe(
-                {
-                    method: req.method,
-                    route: req.route.path,
-                    statusCode: res.statusCode
-                },
-                time * 1000
-            );
-        }
-    })
+  responseTime((req: Request, res: Response, time: number) => {
+    if (req?.route?.path) {
+      restResponseTimeHistogram.observe(
+        {
+          method: req.method,
+          route: req.route.path,
+          statusCode: res.statusCode
+        },
+        time * 1000
+      );
+    }
+  })
 );
 
 app.get("/", (_, res: Response) => {
-    res.send("Welcome to SterlingTech backend framework!!!");
+  res.send("Welcome to my Abbey Submission Social API");
 });
 
 //metrics
