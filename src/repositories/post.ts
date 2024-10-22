@@ -56,6 +56,12 @@ class PostRepo {
       where: { id: postId }
     });
   }
+
+  async edit(payload: any, id): Promise<any> {
+    return await followRship.update(payload, {
+      where: { id }
+    });
+  }
 }
 
 export default new PostRepo();
