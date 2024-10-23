@@ -6,7 +6,7 @@ const details = async (req: any, res: Response): Promise<any> => {
   try {
     const { id } = req.query;
 
-    const user = (await id)
+    const user = id
       ? await UserService.findUser(id, res)
       : await UserService.findUser(res.locals.user.id, res);
 
