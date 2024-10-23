@@ -52,5 +52,30 @@ class FollowService {
       200
     );
   }
+
+  async followings(followingId, res: Response): Promise<object> {
+    const followings = await FollowRepo.findAllFollowings(followingId);
+
+    return ApiResponse.Success(
+      res,
+      {
+        message: `You're following ${followings.count} people`,
+        details: followings
+      },
+      200
+    );
+  }
+  async followers(followId, res: Response): Promise<object> {
+    const followers = await FollowRepo.findAllFollowers(followId);
+
+    return ApiResponse.Success(
+      res,
+      {
+        message: `You have ${followers.count} followers`,
+        details: followers
+      },
+      200
+    );
+  }
 }
 export default new FollowService();

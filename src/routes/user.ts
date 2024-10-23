@@ -10,7 +10,7 @@ const { register, login, details, findAllUsers, updateUser, deleteUser } =
 router.post("/register", register);
 router.post("/login", login);
 router.get("/all", findAllUsers);
-router.get("/", Authentication, details);
+router.get("/details", Authentication, details);
 router.patch("/", Authentication, updateUser);
 router.delete("/", Authentication, deleteUser);
 

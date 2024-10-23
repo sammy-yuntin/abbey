@@ -3,7 +3,7 @@ import { FollowRepo, UserRepo } from "../repositories";
 import { Tools } from "../utils";
 
 import { Response } from "express";
-import { ApiResponse } from "../libs";
+import { ApiResponse, Logger } from "../libs";
 
 class UserService {
   async register(payload: any, res: Response): Promise<object> {
@@ -101,13 +101,13 @@ class UserService {
   }
 
   async findAllUsers(
-    res: any,
+    res: any /* ,
     query?: {
       offset: number;
       limit: number;
-    }
+    } */
   ): Promise<object> {
-    const users = await UserRepo.findAll(query);
+    const users = await UserRepo.findAll();
 
     return ApiResponse.Success(
       res,
@@ -125,10 +125,14 @@ class UserService {
       return ApiResponse.NotFoundError(res, "User does not exist");
 
     await UserRepo.remove(id);
-    return ApiResponse.Success(res,{
-      message: "Successfully deleted user",
-      details: user
-    },200 ) 
+    return ApiResponse.Success(
+      res,
+      {
+        message: "Successfully deleted user",
+        details: user
+      },
+      200
+    );
   }
 }
 

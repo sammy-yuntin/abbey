@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Op } from "sequelize";
 import { followRship } from "../models";
+import { Logger } from "../libs";
 
 // Note: Only the model actions go here. Other logics do not come here
 

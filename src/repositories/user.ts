@@ -40,8 +40,8 @@ class UserRepo {
     });
   }
 
-  async findAll(query?: object): Promise<{ rows: object[]; count: number }> {
-    return await User.findAndCountAll(query);
+  async findAll(): Promise<{ rows: object[]; count: number }> {
+    return await User.findAndCountAll();
   }
 
   async remove(id: string): Promise<number> {

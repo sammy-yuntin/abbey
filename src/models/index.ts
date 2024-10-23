@@ -11,3 +11,4 @@ export { default as followRship } from "./following";
 User.hasMany(FollowRship, { onDelete: "CASCADE", onUpdate: "CASCADE" });
 
 User.hasMany(Post, { onDelete: "CASCADE", onUpdate: "CASCADE" });
+Post.belongsTo(User);

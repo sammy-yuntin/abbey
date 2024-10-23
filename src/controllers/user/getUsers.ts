@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { UserService } from "../../services";
-import { ApiResponse } from "../../libs";
+import { ApiResponse, Logger } from "../../libs";
 
 const findAllUsers = async (req: Request, res: Response): Promise<any> => {
   try {
@@ -16,10 +16,10 @@ const findAllUsers = async (req: Request, res: Response): Promise<any> => {
       separate: true // sorting will not work if this is missing
     }; // get actual skip and limit from query params
 
-    const users = await UserService.findAllUsers(query);
+    const users = await UserService.findAllUsers(res);
     return users;
   } catch (error) {
-    // Logger.error(error.message)
+    Logger.error(error.message);
     return ApiResponse.InternalServerError(
       res,
       "Server Error: Something went wrong"
