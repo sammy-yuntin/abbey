@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { User } from "../models";
+import { followRship, User } from "../models";
+import Post from "../models/post";
 
 // Note: Only the model actions go here. Other logics do not come here
 
@@ -14,10 +15,8 @@ class UserRepo {
     });
   }
 
-  async findOne(id: string): Promise<object> {
-    return await User.findByPk(
-      id /* { attributes: { exclude: ["password"] } } */
-    );
+  async findOne(id: string) {
+    return await User.findByPk(id, { include: [Post, followRship] });
   }
 
   async findByUsername(username: string): Promise<object> {
