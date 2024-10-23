@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "dist/server.js",
   "repository": "https://github.com/SterlingTechOrg/backend-framework.git",
-  "author": "Sir_Altruist <eshooluwasegun98@gmail.com>",
+  "author": "Oyelowo O. Samuel",
   "license": "MIT",
   "scripts": {
     "start": "node ./dist/server.js",
@@ -54,7 +54,8 @@
     "redis": "^4.6.7",
     "response-time": "^2.3.2",
     "rimraf": "^5.0.1",
-    "sequelize": "^6.32.1"
+    "sequelize": "^6.32.1",
+    "streamifier": "^0.1.1"
   },
   "devDependencies": {
     "@types/axios": "^0.14.0",
