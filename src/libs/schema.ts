@@ -30,9 +30,9 @@ class SchemaValidation {
 
     loginSchema(payload: UserPayload) {
         const user: Joi.ObjectSchema = Joi.object({
-            email: Joi.string()
+            emailUsername: Joi.string()
                 .label("Invalid email address")
-                .email({ minDomainSegments: 2, tlds: { allow: ["com"] } })
+            /* .email({ minDomainSegments: 2, tlds: { allow: ["com"] } }) */
                 .required(),
             password: Joi.string()
                 .min(8)
