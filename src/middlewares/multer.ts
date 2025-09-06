@@ -11,10 +11,10 @@ import { ParsedQs } from "qs";
 const parser = new DataUri();
 // Initiating a memory storage engine to store files as Buffer objects
 export const upload = multer({
-  storage: multer.memoryStorage(),
-  limits: {
-    fileSize: 5 * 1024 * 1024 // limiting files size to 5MB
-  }
+    storage: multer.memoryStorage(),
+    limits: {
+        fileSize: 5 * 1024 * 1024 // limiting files size to 5MB
+    }
 });
 
 /**
@@ -24,13 +24,13 @@ export const upload = multer({
  */
 
 export const dataUri = (
-  req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>,
-  file?: Express.Multer.File
+    req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>> /* ,
+  file?: Express.Multer.File */
 ): any => {
-  if (req.file) {
-    return parser.format(
-      path.extname(file.originalname).toString(),
-      file.buffer
-    );
-  }
+    if (req.file) {
+        return parser.format(
+            path.extname(req.file.originalname).toString(),
+            req.file.buffer
+        );
+    }
 };
