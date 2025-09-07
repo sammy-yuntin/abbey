@@ -37,6 +37,10 @@ class PostService {
         const payload = req.body;
         const userId = res.locals.user.id;
 
+        const foundPost = await PostRepo.findOne(postid);
+        if (!foundPost)
+            return ApiResponse.NotFoundError(res, "Post No Longer Exists");
+
         let interest: any = await PostInterest.findOne({
             where: {
                 [Op.and]: [{ postId: postid }, { userId }]
