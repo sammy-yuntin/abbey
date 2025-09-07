@@ -5,79 +5,86 @@ import { Response } from "express";
 import { ApiResponse } from "../libs";
 
 class ContactService {
-  async add(payload: any, res: Response): Promise<object> {
-    const { phone } = payload;
-    const existingContact = await ContactRepo.findByPhone(phone);
-    if (existingContact)
-      return ApiResponse.AuthorizationError(res, "contact is already existing");
+    async add(payload: any, res: Response): Promise<object> {
+        const { phone } = payload;
 
-    payload.userId = res.locals.user.id;
+        const existingContact = await ContactRepo.findByPhone(phone);
+        if (existingContact)
+            return ApiResponse.AuthorizationError(res, "contact is already existing");
 
-    const newContact = await ContactRepo.add(payload);
+        payload.userId = res.locals.user.id;
 
-    return ApiResponse.Success(
-      res,
-      {
-        message: "Successfully Saved",
-        details: newContact
-      },
-      201
-    );
-  }
+        const isUser = await UserRepo.findByPhone(phone);
+        if (isUser) payload.isUser = true;
 
-  async updateContact(
-    id: string,
-    payload: any,
-    res: Response
-  ): Promise<object> {
-    const contact = await ContactRepo.view(id);
-    if (contact === null)
-      return ApiResponse.NotFoundError(res, "Contact does not exist");
+        const newContact = await ContactRepo.add(payload);
 
-    const updatedContact = await UserRepo.update(id, payload);
+        return ApiResponse.Success(
+            res,
+            {
+                message: "Successfully Saved",
+                details: newContact
+            },
+            201
+        );
+    }
 
-    return ApiResponse.Success(
-      res,
-      {
-        message: "Contact updated successfully!",
-        details: updatedContact
-      },
-      201
-    );
-  }
+    async updateContact(
+        id: string,
+        payload: any,
+        res: Response
+    ): Promise<object> {
+        const contact = await ContactRepo.view(id);
+        if (contact === null)
+            return ApiResponse.NotFoundError(res, "Contact does not exist");
 
-  async findAllContacts(query?: {
-    offset: number;
-    limit: number;
-  }): Promise<object> {
-    const contacts = await ContactRepo.findContacts(query);
+        const updatedContact = await UserRepo.update(id, payload);
 
-    return {
-      message: "Successfully retrieved all contacts",
-      details: contacts
-    };
-  }
+        return ApiResponse.Success(
+            res,
+            {
+                message: "Contact updated successfully!",
+                details: updatedContact
+            },
+            201
+        );
+    }
 
-  async deleteContact(id: string, res: Response): Promise<object> {
-    const user = await UserRepo.findOne(id);
-    if (!user || user === null)
-      return ApiResponse.NotFoundError(res, "User does not exist");
+    async findMyContacts(
+        res,
+        query?: {
+      offset: number;
+      limit: number;
+    }
+    ): Promise<object> {
+        const contacts = await ContactRepo.findContacts(query);
 
-    await UserRepo.remove(id);
-    return {
-      message: "Successfully deleted user",
-      details: user
-    };
-  }
+        return ApiResponse.Success(res, {
+            message: "Successfully retrieved all contacts",
+            details: contacts
+        });
+    }
 
-  async view(id: string, res: Response): Promise<any> {
-    const contact = await ContactRepo.view(id);
+    async deleteContact(id: string, res: Response): Promise<object> {
+        const user = await UserRepo.findOne(id);
+        if (!user || user === null)
+            return ApiResponse.NotFoundError(res, "User does not exist");
 
-    return ApiResponse.Success(res, {
-      message: "Deails successfully fetched",
-      details: contact
-    });
-  }
+        await UserRepo.remove(id);
+        return {
+            message: "Successfully deleted user",
+            details: user
+        };
+    }
+
+    async view(id: string, res: Response): Promise<any> {
+        const contact = await ContactRepo.view(id);
+
+        return ApiResponse.Success(res, {
+            message: "Deails successfully fetched",
+            details: contact
+        });
+    }
 }
 
 export default new ContactService();

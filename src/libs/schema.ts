@@ -15,6 +15,10 @@ class SchemaValidation {
                 .min(3)
                 .label("Username is required and not less than three characters")
                 .required(),
+            phone: Joi.string()
+                .min(11)
+                .label("Phone, with not less than 10 haracters"),
+
             password: Joi.string()
                 .min(8)
                 .label(

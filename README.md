@@ -1,3 +1,14 @@
-# backend-framework
+# Kindly Note the Information Below!
 
-This is a starter pack for all backend applications. Clone and build on it for any application
+1. Use the Key ENV variables stated below with appropriate values as deemed fit by your machine.
+
+DB_PORT =
+DB_USER =
+SECRET_KEY =
+DB_PASSWORD =
+DB_NAME =
+DB_HOST =
+CLOUDINARY_API_KEY=
+CLOUDINARY_API_SECRET=
+
+PORT = 8001

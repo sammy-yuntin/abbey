@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Request, Response } from "express";
-import { ContactService } from "../../services";
-import { ApiResponse } from "../../libs";
+import { PostService } from "../../services";
+import { ApiResponse, Logger } from "../../libs";
 
-const create = async (req: Request, res: Response): Promise<Response> => {
+const likePost = async (req: Request, res: Response): Promise<any> => {
     try {
     /* const { error } = SchemaValidation.registrationSchema(req.body);
     if (error) {
@@ -15,11 +15,10 @@ const create = async (req: Request, res: Response): Promise<Response> => {
       );
     } */
 
-        const contact: any = await ContactService.add(req.body, res);
-
-        return contact;
+        const post = await PostService.toggleLike(req, res);
+        return post;
     } catch (error) {
-    // Logger.error(error.message)
+        Logger.error(error.message);
         return ApiResponse.InternalServerError(
             res,
             "Server Error: Something went wrong"
@@ -27,4 +26,4 @@ const create = async (req: Request, res: Response): Promise<Response> => {
     }
 };
 
-export default create;
+export default likePost;

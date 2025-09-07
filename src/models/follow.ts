@@ -1,29 +1,23 @@
-import dbClient from "../datasources/db";
 import { DataTypes, UUIDV4 } from "sequelize";
+import dbClient from "../datasources/db";
 
-const Contact = dbClient.define(
-    "contact",
+const Follow = dbClient.define(
+    "follow",
     {
         id: {
             type: DataTypes.UUID,
             defaultValue: UUIDV4,
             primaryKey: true
         },
-        phone: {
+        username: {
             type: DataTypes.STRING,
             allowNull: false
         },
-        fullname: {
+        secondPartyId: {
             type: DataTypes.STRING,
             allowNull: false
-        },
-        isUser: {
-            type: DataTypes.BOOLEAN,
-            allowNull: false,
-            defaultValue: false
         }
     },
     { timestamps: true }
 );
-
-export default Contact;
+export default Follow;

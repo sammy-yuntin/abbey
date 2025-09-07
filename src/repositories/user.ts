@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Op } from "sequelize";
-import { followRship, User } from "../models";
+import { Follow, User } from "../models";
 import Post from "../models/post";
 
 // Note: Only the model actions go here. Other logics do not come here
@@ -17,7 +17,7 @@ class UserRepo {
     }
 
     async findOne(id: string) {
-        return await User.findByPk(id, { include: [Post, followRship] });
+        return await User.findByPk(id, { include: [Post, Follow] });
     }
 
     async findByUsername(username: string): Promise<object> {
@@ -39,9 +39,9 @@ class UserRepo {
             where: { [Op.or]: { email: input, username: input } }
         });
     }
-    async findByPhone(email: string): Promise<object> {
+    async findByPhone(phone: string): Promise<object> {
         return await User.findOne({
-            where: { email }
+            where: { phone }
         });
     }
 

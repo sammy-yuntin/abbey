@@ -7,13 +7,17 @@ import { ApiResponse } from "../libs";
 
 class UserService {
     async register(payload: any, res: Response): Promise<object> {
-        const { username, email } = payload;
+        const { username, email, phone } = payload;
+
         const existingEmail = await UserRepo.findByEmail(email);
         if (existingEmail)
             return ApiResponse.AuthorizationError(res, "Email is already taken");
-        const user = await UserRepo.findByUsername(username);
-        if (user)
+        const existingUsername = await UserRepo.findByUsername(username);
+        if (existingUsername)
             return ApiResponse.AuthorizationError(res, "Username already exists");
+        const existingPhone = await UserRepo.findByPhone(phone);
+        if (existingPhone)
+            return ApiResponse.AuthorizationError(res, "Phone already exists");
 
         const newUser = await UserRepo.create(payload);
 

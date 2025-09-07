@@ -14,7 +14,7 @@ const User = db.define<UserModel, UserPayload>(
         username: {
             type: DataTypes.STRING,
             allowNull: false,
-            unique: true
+            unique: "username"
         },
         email: {
             type: DataTypes.STRING,
@@ -32,6 +32,10 @@ const User = db.define<UserModel, UserPayload>(
             type: DataTypes.INTEGER,
             defaultValue: 120,
             allowNull: false
+        },
+        phone: {
+            type: DataTypes.STRING,
+            unique: "phone"
         }
     },
     {
